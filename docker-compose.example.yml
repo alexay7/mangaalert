@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  mangaalert:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - BOT_TOKEN=
+      - MANGA_URL=
+      - TELEGRAM_CHAT_ID=
+    volumes:
+      # We need the cache folder
+      - ./temp:/temp

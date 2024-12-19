@@ -1,0 +1,31 @@
+{
+  "name": "mangaalert",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/alexay7/mangaalert.git",
+  "author": "alexay7 <43906716+alexay7@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node-telegram-bot-api": "^0.64.7",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1"
+  },
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "start": "tsc && node dist/index.js",
+    "lint": "eslint . --ext .ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/node-cron": "^3.0.11",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "node-cron": "^3.0.3",
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}
