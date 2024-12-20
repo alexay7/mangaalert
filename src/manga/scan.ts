@@ -19,6 +19,7 @@ export async function searchManga(): Promise<void> {
         if (response.status === 200) {
             const $ = cheerio.load(response.data);
             const mangaList = $("h2.entry-title");
+            const url = $("h2.entry-title a").attr("href");
 
             mangaList.each((_, element) => {
                 const mangaName = $(element).text();
@@ -29,7 +30,10 @@ export async function searchManga(): Promise<void> {
                     if (mangaName.includes(target) && !cachedVolumes.includes(cleanName)) {
                         addNewElementToCache(cleanName);
 
-                        bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `Ha salido un nuevo volumen: ${cleanName}\n${mangaUrl}`);
+                        // Add to memory cache
+                        cachedVolumes.push(cleanName);
+
+                        bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `Ha salido un nuevo volumen: ${cleanName}\n${url}`);
                         break;
                     }
                 }
