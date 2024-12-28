@@ -145,3 +145,5 @@ dist
 
 docker-compose.yml
 temp
+
+.DS_Store

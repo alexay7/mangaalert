@@ -21,23 +21,24 @@ export async function searchManga(): Promise<void> {
             const mangaList = $("h2.entry-title");
             const url = $("h2.entry-title a").attr("href");
 
-            mangaList.each((_, element) => {
+            for (let i = 0; i < mangaList.length; i++) {
+                const element = mangaList[i];
                 const mangaName = $(element).text();
 
-                // Check if it's on the target list
-                for (const target of targets) {
+                const promises = targets.map(async (target) => {
                     const cleanName = mangaName.split("]").pop().trim();
                     if (mangaName.includes(target) && !cachedVolumes.includes(cleanName)) {
-                        addNewElementToCache(cleanName);
+                        await addNewElementToCache(cleanName);
 
                         // Add to memory cache
                         cachedVolumes.push(cleanName);
 
-                        bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `Ha salido un nuevo volumen: ${cleanName}\n${url}`);
-                        break;
+                        await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `Ha salido un nuevo volumen: ${cleanName}\n${url}`);
                     }
-                }
-            });
+                });
+
+                await Promise.all(promises);
+            }
         }
     } catch (error) {
         console.error('Error fetching manga releases:', error);
