@@ -19,11 +19,11 @@ export async function searchManga(): Promise<void> {
         if (response.status === 200) {
             const $ = cheerio.load(response.data);
             const mangaList = $("h2.entry-title");
-            const url = $("h2.entry-title a").attr("href");
 
             for (let i = 0; i < mangaList.length; i++) {
                 const element = mangaList[i];
                 const mangaName = $(element).text();
+                const url = $(element).find("a").attr("href");
 
                 const promises = targets.map(async (target) => {
                     const cleanName = mangaName.split("]").pop().trim();
